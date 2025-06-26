@@ -1,0 +1,1 @@
+A personal collection of small scripts and fragments of code. Mainly just tests and ideas. Most subfolders put more focus onto the syntax of certain languages, while the scripts of "general" are slightly more end-functionality oriented.
