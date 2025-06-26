@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<script>
+	let
+	by_index
+	=
+	[]
+	
+	let
+	by_name
+	=
+	{}
+	
+	let
+	add_new_object
+	=
+	(
+		name,
+		age,
+		trait
+	)=>
+	by_index
+	.push({
+			name,
+			
+			...
+			by_name[
+				name
+			]
+			={
+				age,
+				trait
+			}
+		}
+	)
+	
+	add_new_object(
+		'genti',
+		35,
+		'funny'
+	)
+	
+	add_new_object(
+		'megi',
+		20,
+		'kind'
+	)
+	
+	print(
+		by_index[
+			0
+		]
+		,
+		
+		by_name
+		.genti
+	)
+	
+	function
+	print(){
+		for(
+			let
+			argument
+			of
+			arguments
+		)
+		console.log(
+			argument
+		)
+	}
+</script>

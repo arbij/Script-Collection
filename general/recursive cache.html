@@ -1,0 +1,106 @@
+<DOCTYPE html>
+<script>
+	let
+	print
+	=
+	string=>
+	document.write
+	(
+		string
+		+
+		'<br>'
+	)
+	
+	let
+	powers_of_2
+	
+	{
+		let
+		cache
+		={
+			0:
+			1
+		}
+		
+		powers_of_2
+		=
+		exponent=>
+		{
+			if
+			(
+				exponent
+				%
+				1
+				!=
+				0
+			)
+			throw 'must be integer'
+			
+			let
+			_return
+			=
+			cache[
+				exponent
+			]
+			
+			if(
+				_return
+				!=
+				undefined
+			)
+			return(
+				_return
+			)
+			
+			if(
+				exponent
+				>
+				0
+			)
+			_return
+			=
+			powers_of_2(
+				exponent
+				-
+				1
+			)
+			*
+			2
+			
+			else
+			_return
+			=
+			powers_of_2
+			(
+				exponent
+				+
+				1
+			)
+			/
+			2
+			
+			cache[
+				exponent
+			]
+			=
+			_return
+			
+			return(
+				_return
+			)
+		}
+		
+		print(
+			powers_of_2(20)
+		)
+		print(
+			powers_of_2(-20)	
+		)
+		print(
+			powers_of_2(
+				10
+			)
+		)
+		console.log(cache)
+	}
+</script>

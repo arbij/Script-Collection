@@ -1,0 +1,17 @@
+<script>
+	let iteration =	0
+	
+	let position = 0
+	
+	while(true){
+		document.write(position + '<br>')
+		
+		++iteration
+		
+		if(iteration > 23) break
+		
+		if(Math.random() < 1/2)
+		--position
+		else ++position
+	}
+</script>

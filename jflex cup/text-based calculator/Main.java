@@ -1,0 +1,34 @@
+import 
+java.io.*;
+
+class
+Main
+{
+	static public void main(String args[])
+	{
+		try 
+		{
+			new 
+			parser
+			(
+				new
+				Yylex
+				(
+					new
+					FileReader
+					(
+						args
+						[0]
+					)
+				)
+			)
+			.parse();
+		}
+		catch
+		(
+			Exception
+			e
+		)
+		{e.printStackTrace();}
+	}
+}

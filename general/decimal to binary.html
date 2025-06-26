@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<script>
+	function
+	print(){
+		for(
+			let
+			argument
+			of
+			arguments
+		)
+		console.log(
+			argument
+		)
+	}
+	
+	let
+	decimal_to_binary
+	=
+	decimal=>{
+		let
+		binary
+		=
+		''
+		
+		let
+		potential_decrement
+		=
+		1
+		
+		while(true){
+			let
+			new_decrement
+			=
+			potential_decrement
+			*
+			2
+			
+			if(
+				new_decrement
+				>
+				decimal
+			)
+			break
+			
+			potential_decrement
+			=
+			new_decrement
+		}
+		
+		while(true){	
+			if(
+				decimal
+				>=
+				potential_decrement
+			){
+				decimal
+				-=
+				potential_decrement
+				
+				binary
+				+=
+				'1'
+			}
+			else
+			binary
+			+=
+			'0'
+			
+			potential_decrement
+			/=
+			2
+			
+			if(
+				potential_decrement
+				<
+				1
+				
+				&&
+				
+				decimal
+				==
+				0
+			)
+			return binary
+			
+			if(
+				potential_decrement
+				==
+				1
+				/
+				2
+			)
+			binary
+			+=
+			'.'
+		}
+	}
+	
+	print
+	(
+		decimal_to_binary(
+			2.25
+		),
+		
+		decimal_to_binary(
+			1.25
+		),
+		
+		decimal_to_binary(
+			0.25
+		),
+		
+		decimal_to_binary(
+			0
+		),
+		
+		decimal_to_binary(
+			1
+		),
+		
+		decimal_to_binary(
+			415.75 - 111.0625
+		)
+	)
+</script>

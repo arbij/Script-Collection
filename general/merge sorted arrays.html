@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<script>
+	let
+	a =
+	[
+		2,
+		7,
+		9,
+		20,
+		25
+	]
+
+	let
+	b =
+	[
+		3,
+		10,
+		11,
+		12
+	]
+
+	let
+	c =
+	[]
+
+	{
+		let
+		a_index =
+		0
+
+		let
+		b_index =
+		0
+
+		let
+		c_index =
+		0
+
+		let
+		add_from_a =
+		()=>
+		c
+		[c_index++]
+		=
+		a
+		[a_index++]
+
+		let
+		add_from_b =
+		()=>
+		c
+		[c_index++]
+		=
+		b
+		[b_index++]
+
+		let
+		a_finished =
+		()=>
+		a_index
+		===
+		a.length
+		
+		let
+		b_finished =
+		()=>
+		b_index
+		===
+		b.length
+		
+		done:
+		while(true){
+			if
+			(a_finished())
+			while
+			(true){
+				if
+				(b_finished())
+				break done
+				
+				add_from_b()
+			}
+			
+			if
+			(b_finished())
+			while(true){
+				if
+				(a_finished())
+				break done
+				
+				add_from_a()
+			}
+			
+			if(
+				a
+				[a_index]
+				<
+				b
+				[b_index]
+			)
+			add_from_a()
+			else
+			add_from_b()
+		}
+	}
+
+	console.log
+	(c)
+</script>

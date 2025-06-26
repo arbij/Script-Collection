@@ -1,0 +1,1063 @@
+<script
+	type=module
+>
+	document
+	.open()
+	
+	document
+	.write(
+		'<!doctype html>'
+	)
+	
+	let
+	data_array=
+	[]
+	
+	split_string:{
+		let
+		string
+		=
+		await(
+			await
+			fetch(
+				'data.txt'
+			)
+		)
+		.text()
+		
+		let
+		splitter
+		=
+		'\r\n'
+		
+		let
+		index=
+		0
+		
+		let
+		element=
+		''
+		
+		while(true){
+			let
+			splitter_index=
+			0
+			
+			check_if_splitter:{
+				let
+				potential_index=
+				index
+				
+				while(true){
+					if(
+						splitter[
+							splitter_index
+						]
+						!==
+						string[
+							potential_index
+						]
+					)
+					break check_if_splitter
+					
+					if(
+						splitter_index
+						===
+						splitter
+						.length
+						-
+						1
+					)
+					break
+					
+					if(
+						potential_index
+						===
+						string
+						.length
+						-
+						1
+					)
+					while(1){
+						element
+						+=
+						string[
+							index
+						]
+						
+						if(
+							index
+							===
+							string
+							.length
+							-
+							1
+						){
+							data_array
+							.push(
+								+
+								element
+							)
+							
+							break split_string
+						}
+						
+						++
+						index
+					}
+					
+					++
+					potential_index
+					
+					++
+					splitter_index
+				}
+				
+				data_array
+				.push(
+					+
+					element
+				)
+				
+				element
+				=
+				''
+				
+				index
+				=
+				potential_index
+				+
+				1
+			}
+			
+			element
+			+=
+			string[
+				index
+			]
+			
+			if(
+				index
+				===
+				string
+				.length
+				-
+				1
+			){
+				data_array
+				.push(
+					+
+					element
+				)
+				
+				break
+			}
+			
+			++
+			index
+		}
+	}
+	
+	let
+	print
+	=
+	(
+		...
+		the_arguments
+	) =>
+	{
+		if
+		(
+			the_arguments
+			[
+				0
+			]
+			===
+			undefined
+		)
+		the_arguments
+		[
+			0
+		]
+		=
+		''
+		
+		for
+		(
+			let
+			argument
+			of
+			the_arguments
+		)
+		document.write
+		(
+			argument
+			+
+			'<br>'
+		)
+	}
+	
+	for
+	(
+		let
+		index
+		in
+		data_array
+	)
+	print
+	(
+		index
+		+
+		' - '
+		+
+		data_array
+		[
+			index
+		]
+	)
+	
+	print()
+	
+	// data_array = [1, 1, 2, 2, 2, 4, 2, 4, 1, 3, 1, 2, 2, 4, 3]
+	
+	let
+	mean
+	
+	//calculate expected_value
+	{
+		let
+		sum
+		= 0
+		
+		for
+		(
+			let
+			value
+			of
+			data_array
+		){
+			sum
+			+=
+			value
+		}
+		
+		mean
+		=
+		sum
+		/
+		data_array
+		.length
+		
+		print(
+			'Mean: '+
+			mean
+		)
+	}
+	
+	let
+	variance
+	
+	// calculate variance
+	{
+		let
+		shuma
+		= 0
+		
+		for(
+			let
+			value
+			of
+			data_array
+		){
+			shuma
+			+=
+			value
+			*
+			value
+		}
+		
+		variance
+		=
+		shuma
+		/
+		data_array
+		.
+		length
+		-
+		mean
+		**
+		2
+		
+		print(
+			'Variance: '
+			+
+			variance,
+			
+			''
+		)
+	}
+	
+	let
+	standard_deviation
+	=
+	Math
+	.sqrt(
+		variance
+	)
+	
+	{ 	//block, sort the data
+		let
+		leftest_unsorted,
+		minimum
+		
+		leftest_unsorted
+		=
+		minimum
+		=
+		0
+		
+		while(true)
+		{ 	//loop, replace minimum
+			let
+			new_minimum
+			=
+			leftest_unsorted
+			+
+			1
+			
+			while(true)
+			{ 	//loop, find minimum
+				if
+				(
+					data_array
+					[new_minimum]
+					<
+					data_array
+					[minimum]
+				)
+				minimum=
+				new_minimum
+				
+				++
+				new_minimum
+				
+				if(
+					new_minimum
+					===
+					data_array.length
+				)
+				break
+			}
+			
+			[
+				data_array[
+					leftest_unsorted
+				]
+				,
+				data_array[
+					minimum
+				]
+			]
+			=
+			[
+				data_array[
+					minimum
+				]
+				,
+				data_array[
+					leftest_unsorted
+				]
+			]
+			
+			++
+			leftest_unsorted
+			
+			if(
+				leftest_unsorted
+				===
+				data_array.length
+				-
+				1
+			)
+			break
+		}
+	}
+	
+	let
+	quartiles=
+	[]
+	
+	let
+	quartile_distance
+		
+	// boksploti
+	{
+		let
+		percentile=
+		0
+		
+		while(true){
+			let
+			index
+			=
+			percentile
+			/
+			100
+			*(
+				data_array
+				.length
+				-
+				1
+			)
+			
+			let
+			remainder
+			=
+			index
+			%
+			1
+			
+			let
+			whole_index
+			=
+			index
+			-
+			remainder
+			
+			let
+			value
+			=
+			data_array[
+				whole_index
+			]
+			*(
+				1
+				-
+				remainder
+			)
+			
+			if(
+				remainder
+				!==
+				0
+			)
+			value
+			+=
+			data_array[
+				whole_index
+				+
+				1
+			]
+			*
+			remainder
+			
+			print(
+				'Percentile '
+				+
+				percentile
+				+
+				' => position: '
+				+
+				index
+				+
+				', value: '
+				+
+				value
+			)
+			
+			quartiles[
+				percentile
+				/
+				25
+			]
+			=
+			value
+			
+			if(
+				percentile
+				===
+				100
+			)
+			break
+			
+			percentile
+			+=
+			25
+		}
+		
+		quartile_distance
+		=
+		quartiles
+		[3]
+		-
+		quartiles
+		[1]
+		
+		print(
+			'',
+			
+			'Quartile distance: '
+			+
+			quartile_distance
+		)
+		
+		let
+		low_outlier_limit
+		=
+		quartiles
+		[1]
+		-
+		quartile_distance
+		*
+		1.5
+		
+		print(
+			'Low outlier limit: '
+			+
+			low_outlier_limit
+		)
+		
+		document.write(
+			'Very small values: '
+		)
+		
+		let
+		index=
+		0
+		
+		while(1){
+			let
+			current_value
+			=
+			data_array[
+				index
+			]
+			
+			if(
+				current_value
+				<
+				low_outlier_limit
+			)
+			document.write(
+				current_value
+				+
+				', '
+			)
+			else{
+				print(
+					''
+				)
+				
+				break
+			}
+			
+			++
+			index
+		}
+		
+		let
+		high_outlier_limit
+		=
+		quartiles[
+			3
+		]
+		+
+		quartile_distance
+		*
+		1.5
+		
+		print
+		(
+			'High outlier limit: '
+			+
+			high_outlier_limit
+		)
+		
+		document.write(
+			'Very big values: '
+		)
+		
+		while(1){
+			let
+			current_value
+			=
+			data_array[
+				index
+			]
+			
+			if(
+				current_value
+				>
+				high_outlier_limit
+			)
+			while(1){
+				document.write(
+					current_value
+					+
+					', '
+				)
+				
+				if
+				(
+					index
+					===
+					data_array
+					.
+					length
+					- 1
+				)
+				break
+				
+				++
+				index
+				
+				current_value
+				=
+				data_array[
+					index
+				]
+			}
+			
+			if
+			(
+				index
+				===
+				data_array
+				.
+				length
+				-
+				1
+			){
+				print(
+					''
+				)
+				
+				break
+			}
+			
+			++
+			index
+		}
+	}
+	
+	// leaf-tree diagram
+	{
+		print(
+			'',
+			
+			'Leaf-tree diagram and histogram'
+		)
+		
+		let
+		current_stem
+			
+		let
+		leafs_in_stem
+		=
+		0
+		
+		let
+		data_array_index
+		=
+		0
+		
+		while(1){
+			let
+			data_array_element
+			=
+			data_array[
+				data_array_index
+			]
+			
+			let
+			leaf
+			=
+			data_array_element
+			%
+			10
+			
+			let
+			stem
+			=(
+				data_array_element
+				-
+				leaf
+			)
+			/
+			10
+			
+			if(
+				stem
+				!==
+				current_stem
+			){
+				if(
+					current_stem
+					!==
+					undefined
+				)
+				print(
+					leafs_in_stem
+					+
+					' values in total'
+				)
+			
+				if(
+					data_array_index
+					===
+					data_array
+					.length
+				)
+				break
+				
+				leafs_in_stem
+				=
+				0
+				
+				current_stem
+				=
+				stem
+				
+				document.write(
+					stem
+					+
+					' or '
+					+
+					stem
+					+
+					'0-'
+					+
+					stem
+					+
+					'9'
+					+
+					': '
+				)
+			}
+			
+			document.write(
+				leaf
+				+
+				', '
+			)
+			
+			++
+			leafs_in_stem
+			
+			++
+			data_array_index
+		}
+		
+		print()
+	}
+	
+	print
+	(
+		'Galton coefficient: '
+		+(
+			quartiles[
+				1
+			]
+			+
+			quartiles[
+				3
+			]
+			-
+			2
+			*
+			quartiles[
+				2
+			]
+		)
+		/
+		quartile_distance,
+		
+		''
+	)
+	
+	{
+		let
+		confidence
+		=
+		.95
+		
+		let
+		a
+		=(
+			1
+			-
+			confidence
+		)
+		/
+		2
+		
+		let
+		x
+		=
+		(
+			cumulative_probability
+			,
+			probability_density_function
+			,
+			start
+		)=>{
+			let
+			dx
+			=
+			.01
+			
+			if(
+				start
+				===
+				undefined
+			)
+			start
+			=
+			mean
+			-
+			standard_deviation
+			*
+			4
+			+
+			dx
+			/
+			2
+			
+			let
+			current_x=
+			start
+			
+			while(true){
+				cumulative_probability
+				-=
+				dx
+				*
+				probability_density_function(
+					current_x
+				)
+				
+				current_x
+				+=
+				dx
+				
+				if(
+					cumulative_probability
+					<=
+					0
+				)
+				return(
+					current_x
+				)
+			}
+		}
+		
+		let
+		sample_mean_variance
+		=
+		variance
+		/
+		data_array
+		.length
+		
+		let
+		sample_mean_standard_deviation
+		=
+		Math.sqrt(
+			sample_mean_variance
+		)
+		
+		let
+		gaussian
+		=
+		x =>
+		1
+		/(
+			Math.exp(
+				(
+					x
+					-
+					mean
+				)
+				**
+				2
+				/(
+					2
+					*
+					sample_mean_variance
+				)
+			)
+			*
+			Math.sqrt(
+				2
+				*
+				Math.PI
+				*
+				sample_mean_variance
+			)
+		)
+		
+		print(
+			'Assuming sample rather than population, 95% confidence: ',
+			'Mean: ',
+			
+			'&emsp;'+
+			'Minimal limit: '
+			+
+			x
+			(
+				a
+				,
+				gaussian
+			)
+			,
+			
+			'&emsp;'+
+			'Maximal limit: '
+			+
+			x(
+				a
+				+
+				confidence,
+				
+				gaussian
+			)
+		)
+		
+		let
+		degrees_of_freedom_halved
+		=
+		data_array
+		.
+		length
+		/
+		2
+		
+		let
+		chi_squared
+		=
+		x=>{
+			let
+			factorial
+			=
+			1
+			
+			let
+			current_multiplier
+			=
+			2
+			
+			while(true)
+			{
+				factorial
+				*=
+				current_multiplier
+				
+				++
+				current_multiplier
+					
+				if
+				(
+					current_multiplier
+					===
+					degrees_of_freedom_halved
+				)
+				return(
+					x
+					**
+					(
+						degrees_of_freedom_halved
+						-
+						1
+					)
+					/
+					(
+						Math
+						.
+						exp
+						(
+							x
+							/
+							2
+						)
+						*
+						2
+						**
+						degrees_of_freedom_halved
+						*
+						factorial
+					)
+				)
+			}
+		}
+		
+		print(
+			'Variance:',
+			
+			'&emsp;'+
+			'Minimal limit: '
+			+
+			data_array
+			.length
+			*
+			variance
+			/
+			x(
+				a
+				+
+				confidence,
+				
+				chi_squared,
+				
+				0
+			),
+			
+			'&emsp;'+
+			'Maximal limit: '
+			+
+			data_array
+			.length
+			*
+			variance
+			/
+			x(
+				a,
+				
+				chi_squared,
+				
+				0
+			),
+			
+			''
+		)
+		
+		a
+		=
+		.02
+		
+		print
+		(
+			'Mean interval, 98% confidence',
+			
+			'Minimal limit: '
+			+
+			x(
+				a,
+				
+				gaussian
+			),
+			
+			'Maximal limit: '
+			+
+			x(
+				1
+				-
+				a,
+				
+				gaussian
+			)
+		)
+	}
+	
+	document
+	.close()
+</script>

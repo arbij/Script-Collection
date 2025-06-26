@@ -1,0 +1,61 @@
+<script>
+	let
+	new_node
+	=(
+		value,
+		next
+	)=>({
+			value,
+			next
+		}
+	)
+	
+	{
+		let
+		last_node
+		
+		list
+		=
+		new_node
+		(
+			1,
+			
+			new_node
+			(
+				2,
+				
+				last_node
+				=
+				new_node
+				(3)
+			)
+		)
+		
+		last_node.next
+		=
+		list
+	}
+	
+	let
+	print_list
+	=
+	list =>
+	{
+		let
+		current=
+		list
+		
+		while
+		(current)
+		{
+			alert
+			(current.value)
+			
+			current=
+			current.next
+		}
+	}
+	
+	print_list
+	(list)
+</script>

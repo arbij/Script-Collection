@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<script>
+	let
+	array
+	= []
+
+	let
+	empty_array
+	=(
+		array,
+		number_of_subarrays
+	)=>
+	({
+		array,
+		number_of_subarrays
+	})
+	
+	let
+	empty_arrays
+	=[
+		empty_array(
+			array,
+			5
+		)
+	]
+	
+	while(true){
+		let
+		{
+			array,
+			number_of_subarrays
+		}
+		=
+		empty_arrays
+		.pop()
+		
+		if(
+			number_of_subarrays
+			===
+			2
+		)
+		array
+		[0]
+		=
+		array
+		[1]
+		=
+		true
+		
+		else
+		for(
+			let
+			subarray_index
+			= 0;
+			
+			subarray_index
+			< number_of_subarrays;
+
+			++
+			subarray_index
+		){
+			array
+			[subarray_index]
+			= []
+			
+			empty_arrays
+			.push(
+				empty_array(
+					array
+					[subarray_index],
+
+					number_of_subarrays
+					- 1
+				)
+			)
+		}
+		
+		if(
+			empty_arrays
+			.length
+			===
+			0
+		)
+		break
+	}
+
+	console.log
+	(
+		JSON
+		.stringify
+		(array)
+	)
+</script>

@@ -1,0 +1,165 @@
+<script
+	type=module
+>
+	document.open()
+	
+	document.write(
+		'<!doctype html>'
+	)
+	
+	function
+	print(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		document.write(
+			string
+			+
+			'<br>'
+		)
+	}
+	
+	function
+	repeat(
+		iterations,
+		do_this
+	)
+	{
+		let
+		iteration=
+		1
+		
+		while(
+			iteration
+			<=
+			iterations
+		){
+			do_this(
+				iteration
+			)
+			
+			++
+			iteration
+		}
+	}
+	
+	let
+	humanReadable
+	=
+	seconds=>{		
+		let
+		clock
+		=
+		[]
+		
+		clock[
+			2
+		]
+		=
+		seconds
+		
+		let
+		index
+		=
+		2
+		
+		while(true){
+			let
+			next_index
+			=
+			index
+			-
+			1
+			
+			clock[
+				next_index
+			]
+			=
+			Math.trunc(
+				clock[
+					index
+				]
+				/
+				60
+			)
+			
+			clock[
+				index
+			]
+			%=
+			60
+			
+			index
+			=
+			next_index
+			
+			if(
+				index
+				===
+				0
+			)
+			break
+		}
+		
+		let
+		_return
+		=
+		''
+		
+		while(true){
+			let
+			visible_value
+			=
+			clock[
+				index
+			]
+				
+			_return
+			+=
+			visible_value
+			<=
+			9
+			?
+			'0'
+			+
+			visible_value
+			:
+			visible_value
+			
+			if(
+				index
+				===
+				2
+			)
+			return(
+				_return
+			)
+			
+			++
+			index
+			
+			_return
+			+=
+			':'
+		}
+	}
+	
+	print(
+		humanReadable(
+			359999
+		),
+		
+		humanReadable(
+			3670
+		)
+	)
+	
+	document
+	.close()
+</script>

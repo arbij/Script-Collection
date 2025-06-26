@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<script>
+	let
+	print
+	=
+	(
+		...
+		strings
+	)=>
+	{
+		for(
+			let
+			string
+			of
+			strings
+		)
+		document.write(
+			string
+			+
+			'<br>'
+		)
+	}
+	
+	let
+	constructor
+	=
+	()=>{
+		let a = 4
+		return{
+			get_set(new_a){
+				if(new_a!==undefined)
+				a=new_a
+				
+				return a
+			}
+		}
+	}
+	
+	object=constructor()
+	
+	print(
+		object.get_set(5),
+		object.get_set()
+	)
+</script>
