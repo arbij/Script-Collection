@@ -1,18 +1,67 @@
 <script>
+	function
+	print(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		document.write(
+			string
+			+
+			'<br>'
+		)
+	}
+	
+	function
+	repeat(
+		iterations,
+		do_this
+	){
+		let
+		iteration=
+		1
+		
+		while(
+			iteration
+			<=
+			iterations
+		){
+			do_this(
+				iteration
+			)
+			
+			++
+			iteration
+		}
+	}
+	
 	let
 	new_node
 	=(
 		value,
 		next
-	)=>({
+	)=>{
+		return{
 			value,
 			next
 		}
-	)
+	}
+	
+	let
+	list
 	
 	{
 		let
 		last_node
+		=
+		new_node(
+			3
+		)
 		
 		list
 		=
@@ -25,9 +74,6 @@
 				2,
 				
 				last_node
-				=
-				new_node
-				(3)
 			)
 		)
 		
@@ -39,23 +85,25 @@
 	let
 	print_list
 	=
-	list =>
-	{
-		let
-		current=
-		list
-		
-		while
-		(current)
-		{
-			alert
-			(current.value)
+	list=>{
+		repeat(
+			10,
 			
-			current=
-			current.next
-		}
+			()=>{
+				print(
+					list
+					.value
+				)
+				
+				list
+				=
+				list
+				.next
+			}
+		)
 	}
 	
-	print_list
-	(list)
+	print_list(
+		list
+	)
 </script>
