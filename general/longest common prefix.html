@@ -1,0 +1,161 @@
+<script
+	type=module
+>
+	document.open()
+	
+	document.write(
+		'<!doctype html>'
+	)
+	
+	function
+	print(
+		...
+		strings
+	){
+		console.log(
+			...
+			strings
+		)
+		
+		console.log(
+			''
+		)
+	}
+	
+	function
+	repeat(
+		iterations,
+		do_this
+	){
+		let
+		iteration=
+		0
+		
+		while(
+			iteration
+			<
+			iterations
+		){
+			do_this(
+				iteration
+			)
+			
+			++
+			iteration
+		}
+	}
+	
+	let
+	longestCommonPrefix
+	=
+	words=>{
+		if(
+			words
+			.length
+			===
+			0
+		)
+		return(
+			''
+		)
+		
+		let
+		prefix=
+		words[
+			0
+		]
+		
+		let
+		word_index=
+		1
+		
+		while(true){
+			if(
+				word_index
+				===
+				words
+				.length
+			)
+			return(
+				prefix
+			)
+			
+			let
+			word
+			=
+			words[
+				word_index
+			]
+			
+			let
+			character_index=
+			0
+			
+			while(true){
+				if(
+					character_index
+					===
+					prefix
+					.length
+				)
+				break
+				
+				if(
+					prefix[
+						character_index
+					]
+					!==
+					word[
+						character_index
+					]
+				){
+					let
+					new_prefix=
+					''
+					
+					let
+					new_character_index=
+					0
+					
+					while(true){
+						if(
+							new_character_index
+							===
+							character_index
+						)
+						break
+						
+						new_prefix
+						+=
+						prefix[
+							new_character_index
+						]
+						
+						++
+						new_character_index
+					}
+					
+					prefix=
+					new_prefix
+					
+					break
+				}
+				
+				++
+				character_index
+			}
+			
+			++
+			word_index
+		}
+	}
+	
+	print(
+		longestCommonPrefix(
+			["flower","flow","flight"]
+		)
+	)
+	
+	document
+	.close()
+</script>
