@@ -1,1 +1,1 @@
-A personal collection of small scripts and fragments of code. Mostly tests and ideas. Most subfolders put more focus onto the syntax of specific languages, while "general" and "Leetcode & Codewars" are more end-functionality oriented.
+A personal collection of small scripts and fragments of code. Mostly tests and ideas. Most folders put more focus onto the syntax of specific languages, while "general" and "Leetcode & Codewars" are more end-functionality oriented.
