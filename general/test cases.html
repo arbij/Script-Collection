@@ -1,0 +1,143 @@
+<script
+	type=module
+>
+	document.open()
+	
+	document.write(
+		'<!doctype html>'
+	)
+	
+	function
+	print(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		console.log(
+			string
+		)
+		
+		console.log(
+			''
+		)
+	}
+	
+	function
+	repeat(
+		iterations,
+		do_this
+	){
+		let
+		iteration=
+		0
+		
+		while(
+			iteration
+			<
+			iterations
+		){
+			do_this(
+				iteration
+			)
+			
+			++
+			iteration
+		}
+	}
+	
+	let
+	f
+	=(
+		a,
+		b
+	)=>{
+		return(
+			a
+			-
+			b
+		)
+	}
+	
+	let
+	new_test_case
+	=(
+		inputs,
+		expected_output
+	)=>{
+		return{
+			inputs,
+			expected_output
+		}
+	}
+	
+	let
+	test_cases
+	=[
+		new_test_case(
+			[
+				3,
+				4
+			],
+			7
+		)
+	]
+	
+	let
+	errors=
+	false
+	
+	for(
+		let
+		test_case
+		of
+		test_cases
+	){
+		if(
+			f(
+				...
+				test_case
+				.inputs
+			)
+			!==
+			test_case
+			.expected_output
+		){
+			errors=
+			true
+			
+			print(
+				'Inputs: ',
+				...
+				test_case
+				.inputs,
+				
+				'Expected output',
+				test_case
+				.expected_output,
+				
+				'Actual Output',
+				f(
+					...
+					test_case
+					.inputs
+				)
+			)
+		}
+	}
+	
+	if(
+		!
+		errors
+	)
+	print(
+		'Success!'
+	)
+	
+	document
+	.close()
+</script>
