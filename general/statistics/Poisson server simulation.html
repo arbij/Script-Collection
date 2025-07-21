@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<script>
+	let
+	number_of_connections
+	=
+	0
+	
+	let
+	new_poisson_process
+	{
+		let
+		seconds_per_interval // lim dt -> 0
+		=
+		.1
+		
+		let
+		start_time
+		=
+		Date.now()
+		
+		new_poisson_process
+		=(
+			return_lambda, //connections per second
+			on_occurrence
+		)=>
+		setInterval(
+			()=>{
+				if(
+					Math.random()
+					<
+					return_lambda()
+					*
+					seconds_per_interval
+				){
+					on_occurrence()
+					
+					document.write(
+						(
+							Date.now()
+							-
+							start_time
+						)
+						/
+						1000
+						+
+						' seconds since start<br>'
+						+
+						'Total connections - '
+						+
+						number_of_connections
+						+
+						'<br><br>'
+					)
+				}
+			},
+			
+			1000
+			*
+			seconds_per_interval
+		)
+	}
+	
+	new_poisson_process(
+		()=>
+		.5,
+		
+		()=>{
+			++
+			number_of_connections
+			
+			document.write(
+				'New connetion!<br>'
+			)
+		}
+	)
+	
+	new_poisson_process(
+		()=>
+		number_of_connections
+		*
+		.1,
+		
+		()=>{
+			--
+			number_of_connections
+			
+			document.write(
+				'Connection lost!<br>'
+			)
+		}
+	)
+</script>

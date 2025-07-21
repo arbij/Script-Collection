@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<script>
+	let
+	print
+	=
+	(
+		...
+		strings
+	)=>{
+		for(
+			let
+			string
+			of
+			strings
+		)
+		document.write(
+			string
+			+
+			'<br>'
+		)
+	}
+	
+	//javascript version
+	let
+	constructor_js
+	{
+		function
+		increment(){
+			++
+			this
+			.property
+		}
+		
+		constructor_js
+		=
+		property=>{
+			return{
+				property,
+				increment
+				
+				//or
+				// increment(){
+				// 	++
+				// 	this
+				// 	.property
+				// }
+			}
+		}
+	}
+	
+	//testing
+	let
+	object_js
+	=
+	constructor_js(
+		0
+	)
+	
+	object_js
+	.increment
+	()
+	
+	print(
+		object_js
+		.property
+	)
+	
+	//python version
+	let
+	constructor_py
+	{
+		let
+		increment
+		=
+		object=>
+		++
+		object
+		.property
+		
+		constructor_py
+		=
+		property=>{
+			let
+			object
+			={
+				property
+			}
+			
+			object
+			.increment
+			=
+			()=>
+			increment(
+				object
+			)
+			
+			return(
+				object
+			)
+			
+			//maybe stick with classes here
+		}
+	}
+	
+	let
+	object_py
+	=
+	constructor_py(
+		0
+	)
+	
+	object_py
+	.increment
+	()
+	
+	print(
+		object_py
+		.property
+	)
+</script>

@@ -1,0 +1,395 @@
+parser code{:
+	Double
+	[]
+	scalar_variables
+	=
+	new Double
+	[26];
+	
+	Double
+	[][]
+	vector_variables
+	=
+	new
+	Double
+	[26]
+	[2];
+:};
+
+terminal
+exponent,
+power,
+plus,
+minus,
+multiply,
+divide,
+semicolon,
+equal,
+left_square_bracket,
+right_square_bracket,
+question_mark,
+coma,
+dot;
+
+terminal
+Integer
+scalar_variable,
+vector_variable;
+
+terminal
+Double
+number;
+
+non terminal
+input,
+statements,
+statement;
+
+non terminal
+Double
+scalar;
+
+non terminal
+Double[2]
+vector;
+
+precedence left
+plus,
+minus;
+
+precedence left
+dot;
+
+precedence left
+multiply,
+divide;
+
+precedence right
+power;
+
+precedence nonassoc
+exponent;
+
+input::=
+statement
+statements
+question_mark;
+
+statements::=
+|
+statements
+semicolon
+statement;
+
+statement
+::=
+scalar_variable:scalar_variable
+equal
+scalar:scalar
+{:
+	scalar_variables
+	[scalar_variable]
+	=
+	scalar;
+	
+	System.out.println
+	(
+		"Scalar assignment - "+
+		scalar
+	);
+:}
+|
+vector_variable:vector_variable
+equal
+vector:vector
+{:
+	System.out.print
+	("Vector assignment - [");
+	
+	int
+	element=
+	0;
+	
+	while(true)
+	{
+		Double
+		element_value=
+		vector
+		[element];
+		
+		vector_variables
+		[vector_variable]
+		[element]
+		=
+		element_value;
+		
+		System.out.print
+		(element_value);
+		
+		++
+		element;
+		
+		if
+		(
+			element
+			==
+			2
+		)
+		break;
+		
+		System.out.print
+		(", ");
+	}
+	
+	System.out.println
+	("]");
+:}
+|
+scalar:scalar
+{:
+	System.out.println
+	(
+		"Scalar expression - "+
+		scalar
+	);
+:}
+|
+vector:vector
+{:
+	System.out.println
+	(
+		"Vector expression - ["
+		+
+		vector
+		[0]
+		+
+		", "
+		+
+		vector
+		[1]
+		+
+		"]"
+	);
+:};
+
+vector
+::=
+left_square_bracket
+scalar:scalar_1
+coma
+scalar:scalar_2
+right_square_bracket
+{:
+	RESULT
+	=
+	new
+	Double
+	[]
+	{
+		scalar_1,
+		scalar_2
+	};
+:}
+|
+vector_variable:vector_variable
+{:
+	RESULT=
+	vector_variables
+	[vector_variable];
+:}
+|
+vector:vector_1
+plus
+vector:vector_2
+{:
+	RESULT
+	=
+	new
+	Double
+	[]
+	{
+		vector_1
+		[0]
+		+
+		vector_2
+		[0],
+		
+		vector_1
+		[1]
+		+
+		vector_2
+		[1]
+	};
+:}
+|
+vector:vector_1
+minus
+vector:vector_2
+{:
+	
+	RESULT
+	=
+	new
+	Double
+	[]
+	{
+		vector_1
+		[0]
+		-
+		vector_2
+		[0],
+		
+		vector_1
+		[1]
+		-
+		vector_2
+		[1]
+	};
+:}
+|
+scalar:scalar
+multiply
+vector:vector
+{:
+	vector
+	[0]
+	*=
+	scalar;
+	
+	vector
+	[1]
+	*=
+	scalar;
+	
+	RESULT=
+	vector;
+:}
+|
+vector:vector
+multiply
+scalar:scalar
+{:
+	vector
+	[0]
+	*=
+	scalar;
+	
+	vector
+	[1]
+	*=
+	scalar;
+	
+	RESULT=
+	vector;
+:};
+
+scalar
+::=
+number:number
+{:
+	RESULT=
+	number;
+:}
+|
+scalar_variable:scalar_variable
+{:
+	RESULT=
+	scalar_variables
+	[scalar_variable];
+:}
+|
+minus
+scalar:scalar
+{:
+	RESULT=
+	-scalar;
+:}
+|
+scalar:scalar_1
+exponent
+scalar:scalar_2
+{:
+	RESULT=
+	scalar_1
+	*
+	Math.pow
+	(
+		10,
+		scalar_2
+	);
+:}
+|
+scalar:scalar_1
+power
+scalar:scalar_2
+{:
+	RESULT=
+	Math.pow
+	(
+		scalar_1,
+		scalar_2
+	);
+:}
+|
+scalar:scalar_1
+multiply
+scalar:scalar_2
+{:
+	RESULT
+	=
+	scalar_1
+	*
+	scalar_2;
+:}
+|
+scalar:scalar_1
+divide
+scalar:scalar_2
+{:
+	RESULT
+	=
+	scalar_1
+	/
+	scalar_2;
+:}
+|
+scalar:scalar_1
+plus
+scalar:scalar_2
+{:
+	RESULT
+	=
+	scalar_1
+	+
+	scalar_2;
+:}
+|
+scalar:scalar_1
+minus
+scalar:scalar_2
+{:
+	RESULT
+	=
+	scalar_1
+	-
+	scalar_2;
+:}
+|
+vector:vector_1
+dot
+vector:vector_2
+{:
+	RESULT
+	=
+	vector_1
+	[0]
+	*
+	vector_2
+	[0]
+	+
+	vector_1
+	[1]
+	*
+	vector_2
+	[1];
+:};

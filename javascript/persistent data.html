@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<script>
+	let
+	n
+	
+	if(
+		localStorage
+		.n
+		===
+		undefined	
+	){
+		n
+		=
+		[]
+	}
+	else{
+		n
+		=
+		JSON
+		.parse(
+			localStorage
+			.n
+		)
+		
+		++
+		n[
+			0
+		]
+	}
+	
+	console.log(
+		n
+	)
+	
+	localStorage
+	.n
+	=
+	JSON
+	.stringify(
+		n
+	);
+</script>

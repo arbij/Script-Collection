@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<script>		
+	let
+	measure_speed
+	=
+	some_function =>
+	{
+		let
+		start
+		=
+		Date.now()
+
+		some_function()
+		
+		console.log (
+			Date.now()
+			-
+			start
+		)
+	}
+
+	measure_speed(
+		()=>{
+			let
+			i=
+			0
+			
+			while(
+				i
+				<
+				5e8
+			)
+			++
+			i
+		}
+	)
+</script>

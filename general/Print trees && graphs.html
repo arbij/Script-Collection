@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<script>
+	function newNode(value, leftChild, rightChild){
+		return {
+			value,
+			leftChild,
+			rightChild
+		};
+	}
+	let nodes = [
+		newNode(0, 1, 2),
+		newNode(1, 3, 4),
+		newNode(2, 5, 6),
+		newNode(3),
+		newNode(4),
+		newNode(5),
+		newNode(6),
+	];
+	
+	function printNodes(){
+		// let alreadyChecked = []; //for graphs
+		(function recursion(node){
+
+			let nodeObject = nodes[node];
+			if(nodeObject /*&& !alreadyChecked[node]*/){ //for graphs
+				//alreadyChecked[node] = true; //for graphs
+				console.log(nodeObject.value);
+				recursion(nodeObject.leftChild);
+				recursion(nodeObject.rightChild);
+			}
+
+		})(0);
+	}
+	printNodes();
+
+	function printNodesIterative(){
+		let toBeChecked = [0];
+		// let alreadyChecked = []; //for graphs, same length as "nodes" array
+
+		while(true){
+			let node = toBeChecked.shift(); //or pop()
+
+			let nodeObject = nodes[node];
+			if(nodeObject /*&& !alreadyChecked[node]*/){ //for graphs
+				//alreadyChecked[node] = true; //for graphs
+				console.log(nodeObject.value);
+				toBeChecked.push(nodeObject.leftChild);
+				toBeChecked.push(nodeObject.rightChild); //swap places
+			}
+
+			if(toBeChecked.length == 0) break;
+		}
+	}
+	printNodesIterative();
+</script>

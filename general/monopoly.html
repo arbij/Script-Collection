@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+
+<style>
+	*{
+		box-sizing:
+		border-box;
+	}
+
+	body{
+		margin: 
+		0;
+	}
+</style>
+
+<script>
+	function
+	get_user_input(
+		message,
+		default_value,
+		constraints,
+		
+		integer=
+		false
+	){ //function, get_user_input
+		if
+		(integer)
+		constraints
+		=
+		[	//array, integer constraints 
+			input =>
+			isNaN
+			(input)
+			?
+			['not a number!']
+			:
+			[
+				'',
+			
+				Number
+				(input)
+			],
+			
+			input =>
+			{
+				if
+				(
+					input
+					% 1
+					!==
+					0
+				)
+				return(
+				['not an integer!'])
+			},
+
+			...constraints
+		]
+
+		new_input:
+		while
+		(true)
+		{	//while loop, get new input
+			let
+			user_input
+			=
+			default_value
+			=
+			prompt
+			(
+				message,
+				default_value
+			)
+
+			for
+			(	//for loop, for each constraint
+				let
+				constraint
+				
+				of
+				constraints
+			)
+			{	//for loop, for each constraint
+				let
+				[
+					error_message,
+					user_input_updated
+				]
+				=
+				constraint
+				(user_input)
+				??
+				['']
+
+				if
+				(
+					error_message
+					!==
+					''
+				)
+				{
+					alert
+					(error_message)
+
+					continue new_input
+				}
+				
+				if
+				(
+					user_input_updated
+					!==
+					undefined
+				)
+				user_input=
+				user_input_updated
+			}
+			
+			return(
+			user_input)
+		}
+	}
+
+	let
+	number_of_players
+	=
+	localStorage.number_of_players
+	=
+	get_user_input
+	(	//function arguments, get_user_input
+		'Sa lojtare?',
+		localStorage.number_of_players,
+
+		[
+			number_of_players =>
+			{
+				if
+				(
+					number_of_players
+					<
+					2
+				)
+				return(
+				['Duhen me shume se 1 lojtar!'])
+			}
+		],
+
+		true
+	)
+
+	let
+	players=
+	[]
+
+	let
+	turns_player_indexes=
+	[]
+
+	for
+	(
+		let
+		player_index
+		= 0;
+
+		player_index
+		<
+		number_of_players;
+
+		++
+		player_index
+	)
+	{	//loop, players
+		turns_player_indexes
+		[player_index]
+		=
+		player_index
+		
+		players
+		[player_index]
+		=
+		{	//object initialization, new player
+			position:
+			0,
+
+			money:
+			2000,
+
+			eleminated:
+			false,
+
+			squares:
+			[],
+
+			name
+			:
+			localStorage
+			[`player_name_${player_index}`]
+			=
+			get_user_input
+			(	//function call, get_user_input
+				`Put the name of player ${player_index + 1}`,
+				
+				localStorage
+				[`player_name_${player_index}`],
+				
+				[	//array, player name constraints
+					name =>
+					{	//function declaration, player name not empty
+						if
+						(
+							name
+							===
+							null
+							||
+							(
+								name
+								=
+								name
+								.trim()
+							)
+							===
+							''
+						)
+						return(
+						['Name cannot be empty!'])
+
+						return(
+						[
+							'',
+							name
+						])
+					},
+					
+					name =>
+					{ 	//function declaration, player name not duplicate
+						for
+						(	//for loop, previous players
+							let
+							previous_player_index
+							= 0;
+							
+							previous_player_index
+							< player_index;
+							
+							++
+							previous_player_index
+						)
+						if
+						(
+							name
+							===
+							players
+							[ previous_player_index ]
+							.name
+						)
+						return(
+						['This player already exists!'])
+					}
+				]
+			)
+		}
+	}
+	
+	let
+	current_turn
+	= 0
+	
+	let
+	board
+	
+	{	//block, board initialization
+		let
+		loses_money
+		=
+		(
+			player,
+			money_lost
+		) =>
+		{	//function declaration, loses_money
+			player
+			.money
+			-=
+			money_lost
+
+			if
+			(
+				player
+				.money
+				>= 0
+			)
+			return
+
+			alert
+			(`${player.name} eleminated`)
+
+			player
+			.eleminated
+			= true
+			
+			for(
+				let
+				square
+				
+				of
+				player
+				.squares
+			)
+			square
+			.owner
+			=
+			null
+
+			--
+			number_of_players
+			
+			if(
+				number_of_players
+				===
+				1
+			)
+			for(
+				let
+				player
+
+				of
+				players
+			)
+			if(
+				!
+				player.
+				eleminated
+			)
+			alert
+			(`${player.name} fitoi!!`)
+		}
+		
+		let
+		square
+		=(
+			name,
+
+			on_land
+			=
+			function(){}
+		)=>({
+			name,
+			on_land
+		})
+
+		let
+		buyable
+		=(
+			name,
+			price
+		)=>({	//object return, buyable
+			price,
+
+			owner:
+			null,
+			
+			...
+			square(	//function call, spread new square
+				name,
+
+				function(
+					lander
+				){	//function, on_land
+					if(
+						this
+						.owner
+						===
+						null
+					){	//if, no owner
+						let
+						buys_property
+						=(
+							buyer,
+							price
+						)=>{	//function, buys_property
+							this
+							.owner
+							=
+							buyer
+
+							buyer
+							.squares
+							.push
+							(this)
+
+							buyer
+							.money
+							-=
+							price
+
+							alert
+							(`Player ${buyer.name} bought property ${this.name} for ${price} dollars!`)
+						}
+
+						if(
+							lander
+							.money
+							>=
+							this
+							.price
+							
+							&&
+							
+							confirm
+							('Do you want to buy this property?')
+						)
+						buys_property(
+							lander,
+							
+							this
+							.price
+						)
+						else{	//lander doesn't buy
+							alert
+							('Property to be given to highest bidder!')
+
+							while(true){	//user sets highest bid and bidder
+								let
+								highest_bidder
+								=
+								get_user_input(	//function call, get_user_input
+									'Which player offered more money?', //this can be discussed face-to-face, no need for implemenation
+									'',
+									
+									[	//array, constraints
+										player_name=>{	//function, does player exist?
+											for(
+												let
+												player
+												
+												of
+												players
+											)
+											if(
+												player_name
+												===
+												player
+												.name
+											)
+											return(
+												[
+													'',
+													player
+												]
+											)
+											
+											return(
+											['This player does not exist!'])
+										}
+									]
+								)
+
+								let
+								highest_bid
+								=
+								get_user_input
+								(	//function call, get_user_input
+									'How much money was offered?',
+									'',
+
+									[
+										money_offered =>
+										{
+											if
+											(
+												money_offered
+												< 0
+											)
+											return(
+											['Cannot offer less than 0!'])
+										}
+									],
+									
+									true
+								)
+								
+								if(
+									highest_bid
+									<=
+									highest_bidder
+									.money
+								){
+									buys_property(
+										highest_bidder,
+										highest_bid
+									)
+									
+									break
+								}
+
+								alert
+								('This player does not have enough money!')
+							}
+						}
+					}
+					
+					else
+					if(
+						this
+						.owner
+						!==
+						lander
+					){	//else if, has an owner, owner different from lander
+						let
+						rent
+						=
+						this
+						.calculate_rent()
+
+						this
+						.owner
+						.money
+						+=
+						rent
+
+						alert
+						(`Player ${lander.name} pays ${rent} dollars to player ${this.owner.name}!`)
+
+						loses_money(
+							lander,
+							rent
+						)
+					}
+				}
+			)
+		})
+		
+		let
+		country
+		=(
+			name,
+			price,
+			rent,
+			house_price
+		)=>
+		({	//object return, country
+			...
+			buyable(
+				name,
+				price
+			),
+
+			rent,
+			house_price,
+
+			number_of_houses:
+			0,
+
+			calculate_rent(){
+				return(
+					this
+					.rent[
+						this
+						.number_of_houses
+					]
+				)
+			},
+		})
+		
+		let
+		airport
+		=
+		name =>
+		({
+			...
+			buyable(
+				name,
+				200
+			),
+			
+			g: buyable(),
+
+			rent:
+			[
+				25,
+				50,
+				100,
+				200
+			],
+			
+			calculate_rent(){
+				return(
+					this.
+					rent
+					[0]
+				)
+			}
+		})
+		
+		board
+		=
+		[	//array, board
+			square
+			('Start!'),
+			
+			country(
+				'Lituani',
+				60,
+
+				[
+					2,
+					10,
+					30,
+					90,
+					160,
+					250
+				],
+				
+				50
+			),
+
+			square
+			('!'),
+
+			country
+			(
+				'Letoni',
+				60,
+
+				[
+					4,
+					20,
+					60,
+					180,
+					320,
+					450
+				],
+				
+				50
+			),
+
+			square
+			(
+				'Pay 100',
+			
+				lander=>
+				loses_money
+				(
+					lander,
+					100
+				)
+			),
+			
+			airport
+			('Aeroporti i Veriut'),
+			
+			country(
+				'Bullgari',
+				100,
+
+				[
+					6,
+					30,
+					90,
+					270,
+					400,
+					550
+				],
+				
+				50
+			),
+			
+			square
+			('?'),
+
+			country
+			(
+				'Rumani',
+				100,
+
+				[
+					6,
+					30,
+					90,
+					270,
+					400,
+					550
+				],
+				
+				50
+			),
+			
+			country
+			(
+				'Poloni',
+				120,
+
+				[
+					8,
+					40,
+					100,
+					300,
+					450,
+					600
+				],
+				
+				50
+			),
+
+			square
+			('burg'),
+
+			country
+			(
+				'Hungari',
+				140,
+
+				[
+					10,
+					50,
+					150,
+					450,
+					625,
+					750
+				],
+				
+				100
+			),
+
+			square
+			('drita'),
+
+			country
+			(
+				'Zvicer',
+				140,
+
+				[
+					10,
+					50,
+					150,
+					450,
+					625,
+					750
+				],
+				
+				100
+			),
+			
+			country
+			(
+				'Austri',
+				160,
+
+				[
+					12,
+					60,
+					180,
+					500,
+					700,
+					900
+				],
+				
+				100
+			),
+
+			airport
+			('Aeroporti i Lindjes'),
+			
+			country
+			(
+				'Finlande',
+				180,
+
+				[
+					14,
+					70,
+					200,
+					550,
+					750,
+					950
+				],
+
+				100
+			),
+
+			square
+			('!'),
+
+			country
+			(
+				'Suedi',
+				180,
+
+				[
+					14,
+					70,
+					200,
+					550,
+					750,
+					950
+				],
+
+				100
+			),
+
+			country
+			(
+				'Norvegji',
+				200,
+
+				[
+					16,
+					80,
+					220,
+					600,
+					800,
+					1000
+				],
+
+				100
+			),
+
+			square
+			('parkim'),
+
+			country
+			(
+				'Spanje',
+				220,
+
+				[
+					18,
+					90,
+					250,
+					700,
+					875,
+					1050
+				],
+
+				150
+			),
+
+			square
+			('?'),
+			
+			country
+			(
+				'Portugali',
+				220,
+
+				[
+					18,
+					90,
+					250,
+					700,
+					875,
+					1050
+				],
+
+				150
+			),
+
+			country
+			(
+				'Angli',
+				240,
+
+				[
+					20,
+					100,
+					300,
+					750,
+					925,
+					1100
+				],
+
+				150
+			),
+
+			airport
+			('Aeroporti i Jugut'),
+			
+			country
+			(
+				'Hollande',
+				260,
+
+				[
+					22,
+					110,
+					330,
+					800,
+					975,
+					1150
+				],
+
+				150
+			),
+
+			country
+			(
+				'Belgjike',
+				260,
+
+				[
+					22,
+					110,
+					330,
+					800,
+					975,
+					1150
+				],
+
+				150
+			),
+
+			square
+			('uje'),
+
+			country
+			(
+				'Luksemburg',
+				280,
+
+				[
+					24,
+					120,
+					360,
+					850,
+					1025,
+					1200
+				],
+
+				150
+			),
+
+			square
+			('burg'),
+
+			country
+			(
+				'Danimarke',
+				300,
+
+				[
+					26,
+					130,
+					390,
+					900,
+					1100,
+					1275
+				],
+
+				200
+			),
+
+			country
+			(
+				'Rusi',
+				300,
+
+				[
+					26,
+					130,
+					390,
+					900,
+					1100,
+					1275
+				],
+
+				200
+			),
+
+			square
+			('!'),
+			
+			country
+			(
+				'Itali',
+				320,
+
+				[
+					28,
+					150,
+					450,
+					1000,
+					1200,
+					1400
+				],
+
+				200
+			),
+			
+			airport
+			('Aeroporti i Perendimit'),
+
+			square
+			('?'),
+
+			country
+			(
+				'Gjermani',
+				350,
+
+				[
+					35,
+					175,
+					500,
+					1100,
+					1300,
+					1500
+				],
+
+				200
+			),
+
+			square
+			('Paguaj 100'),
+			
+			country
+			(
+				'France',
+				400,
+
+				[
+					50,
+					200,
+					600,
+					1400,
+					1700,
+					2000
+				],
+
+				200
+			)
+		]
+	}
+
+	document.write
+	(
+		/*html*/
+		`
+			<div
+				id =
+				content
+			></div>
+		`
+	)
+
+	function
+	update_user_interface()
+	{	//function, update_user_interface
+		let
+		string
+		=
+		/*html*/
+		`	${/* string, table html */''}
+			<table
+				style =
+				'/*css*/
+					border:
+					1px
+					solid
+					black;
+					
+					border-collapse:
+					collapse;
+					
+					text-align:
+					center;
+					
+					width:
+					80%;
+					
+					height:
+					100vh;
+					
+					float:
+					left;
+					
+					table-layout:
+					fixed;
+				/*!css*/'
+			>
+		`
+		
+		let
+		add_square
+		{
+			let
+			height_and_width
+			= `${100/11}%`
+			
+			add_square
+			=
+			square_index =>
+			{
+				string +=
+				/*html*/
+				`
+					<td
+						id =
+						${square_index}
+						
+						style =
+						'/*css*/
+							border:
+							1px
+							solid
+							black;
+							
+							height:
+							${height_and_width};
+
+							width:
+							${height_and_width};
+						/*!css*/'
+						
+						onmouseenter =
+						"
+							let
+							square
+							=
+							board
+							[
+								this
+								.id
+							]
+
+							center_square
+							.innerHTML
+							=
+							\`
+								Name - \${square.name}<br>
+								Price - \${square.price}<br>
+								Rent - \${square.rent}<br>
+							\`
+
+							center_square
+							.style
+							.fontSize
+							= '5vh'
+						"
+
+						onmouseleave =
+						'
+							center_square
+							.style
+							.fontSize
+							= "10vh"
+
+							center_square
+							.innerHTML
+							= "MONOPOLY"
+						'
+					>
+						${
+							board
+							[square_index]
+							.name
+						}
+					</td>
+				`
+			}
+		}
+
+		let
+		current_square_index
+		= 0
+		
+		string
+		+= '<tr>'
+		
+		while(
+			current_square_index
+			< 11
+		){
+			add_square
+			(current_square_index)
+
+			++
+			current_square_index
+		}
+		
+		string +=
+		'</tr>'
+
+		while(
+			current_square_index
+			< 29
+		){
+			string
+			+= '<tr>'
+			
+			add_square((
+					89
+					- current_square_index
+				)
+				/ 2
+			)
+			
+			++
+			current_square_index
+			
+			if(
+				current_square_index
+				===
+				12
+			){
+				let
+				span
+				= 9
+				
+				string +=
+				/*html*/
+				`
+					<td
+						colspan =
+						${span}
+						
+						rowspan =
+						${span}
+						
+						style =
+						'/*css*/
+							font-size:
+							10vh;
+						/*!css*/'
+						
+						id =
+						center_square
+					>
+						MONOPOLY
+					</td>
+				`
+			}
+
+			add_square(
+				current_square_index
+				/ 2
+				+ 5
+			)
+
+			++
+			current_square_index
+
+			string
+			+=
+			'</tr>'
+		}
+
+		while(
+			current_square_index
+			< 40
+		){
+			add_square(
+				59
+				- current_square_index
+			)
+			
+			++
+			current_square_index
+		}
+
+		string
+		+= 
+		/*html*/
+		`
+			</table>
+			
+			<div
+				style =
+				'
+					width:
+					15%;
+					
+					float:
+					right;
+				'
+			>
+		`
+
+		for(
+			let
+			player
+			
+			of
+			players
+		){
+			string
+			+=
+			/*html*/
+			`
+				Player: ${player.name}<br>
+				Money: ${player.money}<br>
+				Pozition: ${player.position}<br>
+				Properties:<br>
+			`
+
+			for(
+				let
+				square
+
+				of
+				player
+				.squares
+			)
+			string
+			+=
+			`${square.name}<br>`
+
+			string
+			+= '<br>'
+		}
+		
+		content
+		.innerHTML
+		=
+		string
+	}
+
+	update_user_interface()
+	
+	let
+	interval
+	=
+	setInterval(
+		()=>{
+			let
+			next_turn
+			=
+			()=>{
+				++
+				current_turn
+
+				//extend thue-morse
+				if(
+					current_turn
+					===
+					turns_player_indexes
+					.length
+				){
+					let
+					turns_length
+					=
+					turns_player_indexes
+					.length
+					
+					for(
+						let
+						turn_index
+						= 0;
+						
+						turn_index
+						<
+						turns_length;
+						
+						++
+						turn_index
+					){
+						turns_player_indexes[
+							turn_index
+							+ turns_length
+						]
+						=
+						players
+						.length
+						- 1
+						-
+						turns_player_indexes
+						[turn_index]
+					}
+				}
+			}
+
+			let
+			current_player
+
+			while(true){
+				current_player
+				=
+				players[
+					turns_player_indexes
+					[current_turn]
+				]
+
+				if(
+					!
+					current_player
+					.eleminated
+				)
+				break
+
+				next_turn()
+			}
+			
+			let
+			dice_sum
+			
+			{
+				let
+				dice =
+				() =>
+				Math.ceil
+				(
+					Math.random()
+					* 6
+				)
+				
+				let
+				dice_1
+				=
+				dice()
+				
+				let
+				dice_2
+				=
+				dice()
+
+				alert
+				(`${current_player.name} threw dices: ${dice_1} and ${dice_2}`)
+
+				dice_sum
+				=
+				dice_1
+				+
+				dice_2
+
+				if(
+					dice_1
+					!==
+					dice_2
+				)
+				next_turn()
+			}
+
+			current_player
+			.position
+			+=
+			dice_sum
+
+			if(
+				current_player
+				.position
+				>=
+				40
+			){
+				current_player
+				.position
+				-=
+				40
+
+				current_player
+				.money
+				+=
+				200
+
+				alert
+				(`${current_player.name} finished a lap and won 200$!`)
+			}
+
+			let
+			current_square
+			=
+			board[
+				current_player
+				.position
+			]
+
+			alert
+			(`Player ${current_player.name} landed on ${current_square.name}!`)
+
+			current_square
+			.on_land
+			(current_player)
+			
+			update_user_interface()
+			
+			if(
+				number_of_players
+				===
+				1
+			)
+			clearInterval
+			(interval)
+		},
+
+		100
+	)
+</script>

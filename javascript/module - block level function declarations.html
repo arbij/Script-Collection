@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--doesn't run without type module -->
+<script
+	type=module
+>
+	{
+		f()
+		
+		function f(){
+			console.log(2)
+		}
+		
+		f=function(){
+			console.log(3)
+		}
+		
+		f()
+	}
+	
+	//this runs in non-strict
+	f()
+</script>
