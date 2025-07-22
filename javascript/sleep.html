@@ -5,15 +5,13 @@
 	let
 	sleep
 	=
-	async(
-		seconds
-	)=>
-	await
+	seconds=>
 	new
 	Promise(
 		resolve=>
 		setTimeout(
-			resolve,
+			()=>
+			resolve(),
 			
 			seconds
 			*
