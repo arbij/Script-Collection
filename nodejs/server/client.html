@@ -1,0 +1,110 @@
+<!doctype html>
+<script
+	type=module
+>
+	function
+	print(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		console.log(
+			string
+		)
+		
+		document
+		.write(
+			'<br>'
+		)
+	}
+	
+	function
+	repeat(
+		iterations,
+		do_this
+	){
+		let
+		iteration=
+		0
+		
+		while(
+			iteration
+			<
+			iterations
+		){
+			do_this(
+				iteration
+			)
+			
+			++
+			iteration
+		}
+	}
+	
+	// repeat(
+	// 	10,
+		
+	// 	()=>
+	// 	print()
+	// )
+	
+	document
+	.open()
+	
+	document
+	.write(
+		'<!doctype html>'
+	)
+	
+	async function
+	send_http_request(
+		name,
+		other_data
+	){
+		return(
+			await(
+				await fetch(
+					'http://localhost:8000',
+					
+					{
+						method:
+						'POST',
+						
+						body:
+						JSON.stringify(
+							{
+								name,
+								other_data
+							}
+						)
+					}
+				)
+			)
+			.json()
+		)
+	}
+	
+	print(
+		'Old data',
+		
+		await
+		send_http_request(
+			'read',
+			6
+		)
+	)
+	
+	print(
+		'New data',
+		
+		
+	)
+	
+	document
+	.close()
+</script>

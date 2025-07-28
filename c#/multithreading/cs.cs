@@ -61,7 +61,7 @@ repeat(
 	
 	iteration=>
 	print(
-		" "
+		"b"
 	)
 );
 
