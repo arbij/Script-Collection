@@ -106,11 +106,5 @@ possible_requests
 	}
 )
 .listen(
-	8000,
-	'localhost',
-	
-	()=>
-	print(
-		'server ready'
-	)
+	8000
 )

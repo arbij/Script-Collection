@@ -18,37 +18,15 @@ print(
 	)
 }
 
-function
-repeat(
-	iterations,
-	do_this
-){
-	let
-	iteration=
-	0
-	
-	while(
-		iteration
-		<
-		iterations
-	){
-		do_this(
-			iteration
-		)
-		
-		++
-		iteration
-	}
-}
-
 async function
 send_http_request(
 	name,
 	other_data
 ){
 	return(
-		await(
-			await fetch(
+		(
+			await
+			fetch(
 				'http://localhost:8000',
 				
 				{
