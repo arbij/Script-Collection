@@ -1,0 +1,104 @@
+<!doctype html>
+
+<script
+	type=module
+>
+	function
+	print(
+		...
+		strings
+	){
+		function
+		print_no_blank_space(
+			string
+		){
+			document
+			.body
+			.insertAdjacentHTML(
+				'beforeend',
+				
+				string
+				+
+				'<br>'
+			)
+		}
+		
+		for(
+			let
+			string
+			of
+			strings
+		)
+		print_no_blank_space(
+			string
+		)
+		
+		print_no_blank_space(
+			''
+		)
+	}
+	
+	function
+	create_element(
+		tag,
+		attributes
+	){
+		let
+		element
+		=
+		document
+		.createElement(
+			tag
+		)
+		
+		for(
+			let
+			attribute
+			in
+			attributes
+		){
+			element[
+				attribute
+			]
+			=
+			attributes[
+				attribute
+			]
+		}
+		
+		return(
+			element
+		)
+	}
+	
+	let
+	n=
+	1
+	
+	let
+	button
+	=
+	create_element(
+		'button',
+		
+		{
+			textContent:
+			'button',
+			
+			onclick(){
+				print(
+					n
+				)
+			}
+		}
+	)
+	
+	document
+	.body
+	.append(
+		button
+	)
+	
+	++
+	n
+</script>
