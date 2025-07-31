@@ -1,0 +1,135 @@
+<!doctype html>
+
+<script
+	type=module
+>
+	let
+	body
+	=
+	document
+	.body
+	
+	function
+	print(
+		...
+		strings
+	){
+		function
+		print_no_blank_space(
+			string
+		){
+			document
+			.body
+			.insertAdjacentHTML(
+				'beforeend',
+				
+				string
+				+
+				'<br>'
+			)
+		}
+		
+		for(
+			let
+			string
+			of
+			strings
+		)
+		print_no_blank_space(
+			string
+		)
+		
+		print_no_blank_space(
+			''
+		)
+	}
+	
+	body
+	.append(
+		'hii'
+	)
+	
+	let
+	div
+	=
+	document
+	.createElement(
+		'div'
+	)
+	
+	div.insertAdjacentHTML(
+		'beforeend',
+		'3<br>'
+	)
+	
+	body
+	.append(
+		div
+	)
+	
+	//updates automatically
+	div
+	.append(
+		4
+	)
+	
+	//change position ("div" is a pointer, not a value. just insert it again.)
+	body
+	.insertAdjacentElement(
+		'afterbegin',
+		div
+	)
+	
+	// remove with this
+	// div
+	// .remove()
+	
+	//only if you need to remove it later, otherwise just use a string
+	let
+	text
+	=
+	document
+	.createTextNode(
+		3
+	)
+	
+	//parsed as text/string, not html!!
+	body
+	.append(
+		'not parsed<br>'
+	)
+	
+	//parsed as html
+	body
+	.insertAdjacentHTML(
+		'beforeend',
+		'parsed<br>'
+	)
+	
+	//helper function to avoid writing 'beforeend' all the time. insertAdjacentHTML will only be used when I need to specify the position. If I just want to append in the end, I will use this. Appending of text and nodes in the end by default, is already covered by the default append method.
+	function
+	append_html(
+		parent,
+		string
+	){
+		parent
+		.insertAdjacentHTML(
+			'beforeend',
+			string
+		)
+	}
+	
+	//also works
+	append_html(
+		body,
+		'also parsed<br>'
+	)
+	
+	body.append(
+		text
+	)
+	
+	// remove with this
+	// text
+	// .remove()
+</script>
