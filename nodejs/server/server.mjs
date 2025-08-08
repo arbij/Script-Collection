@@ -30,11 +30,16 @@ possible_requests
 	read(
 		add_this
 	){
+		//update data
+		++
+		data	
+		
 		return(
+			//some computation
 			data
 			+
 			add_this
-		)	
+		)
 	}
 }
 
@@ -82,7 +87,7 @@ possible_requests
 					resolve
 				)
 			}
-		)		
+		)
 		
 		request_body
 		=

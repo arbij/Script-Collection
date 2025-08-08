@@ -1,9 +1,3 @@
-import{
-	createInterface
-}
-from
-'readline/promises'
-
 let
 print
 =(
@@ -25,14 +19,30 @@ print
 	)
 }
 
-let
-scan
-=
-async()=>{
+async function
+scan(
+	message=
+	''
+){
+	if(
+		message
+		!==
+		''
+	)
+	message
+	+=
+	'\n'
+	
 	let
 	readline_interface
-	=
-	createInterface({
+	=(
+		await
+		import(
+			'readline/promises'
+		)
+	)
+	.createInterface(
+		{
 			input
 			:
 			process
@@ -50,7 +60,9 @@ async()=>{
 	=
 	await
 	readline_interface
-	.question('')
+	.question(
+		message
+	)
 	
 	readline_interface
 	.close()
@@ -62,5 +74,7 @@ async()=>{
 
 print(
 	await
-	scan()
+	scan(
+		'hi'
+	)
 )

@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-void
+﻿void
 print(
 	dynamic
 	some_string
@@ -37,12 +34,13 @@ repeat(
 	);
 }
 
-
 var
 thread
 =
 new
-Thread(
+System
+.Threading
+.Thread(
 	()=>
 	repeat(
 		10,

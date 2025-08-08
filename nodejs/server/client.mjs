@@ -48,17 +48,9 @@ send_http_request(
 }
 
 print(
-	'Old data',
-	
 	await
 	send_http_request(
 		'read',
 		6
 	)
-)
-
-print(
-	'New data',
-	
-	
 )

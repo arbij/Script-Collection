@@ -75,30 +75,25 @@
 	n=
 	1
 	
-	let
-	button
-	=
-	create_element(
-		'button',
-		
-		{
-			textContent:
-			'button',
-			
-			onclick(){
-				print(
-					n
-				)
-			}
-		}
-	)
-	
 	document
 	.body
 	.append(
-		button
+		create_element(
+			'button',
+			
+			{
+				textContent:
+				'button',
+				
+				onclick(){
+					print(
+						n
+					)
+					
+					++
+					n
+				}
+			}
+		)
 	)
-	
-	++
-	n
 </script>

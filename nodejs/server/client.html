@@ -23,36 +23,6 @@
 		)
 	}
 	
-	function
-	repeat(
-		iterations,
-		do_this
-	){
-		let
-		iteration=
-		0
-		
-		while(
-			iteration
-			<
-			iterations
-		){
-			do_this(
-				iteration
-			)
-			
-			++
-			iteration
-		}
-	}
-	
-	// repeat(
-	// 	10,
-		
-	// 	()=>
-	// 	print()
-	// )
-	
 	document
 	.open()
 	
@@ -90,19 +60,13 @@
 	}
 	
 	print(
-		'Old data',
+		'New data',
 		
 		await
 		send_http_request(
 			'read',
 			6
 		)
-	)
-	
-	print(
-		'New data',
-		
-		
 	)
 	
 	document
