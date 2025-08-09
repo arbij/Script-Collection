@@ -22,20 +22,19 @@ function
 set_interval(
 	seconds,
 	callback
-){
-	let
-	interval_id
-	
+){	
 	function
 	callback_with_clear(){
 		callback(
-			()=>
-			clearInterval(
-				interval_id
-			)
+			function(){
+				clearInterval(
+					interval_id
+				)
+			}
 		)
 	}
 	
+	let
 	interval_id
 	=
 	setInterval(
@@ -47,14 +46,10 @@ set_interval(
 	)
 	
 	callback_with_clear()
-	
-	return(
-		interval_id
-	)
 }
 
 set_interval(
-	.5,
+	1,
 	
 	clear=>{
 		print(
