@@ -1,0 +1,54 @@
+<!doctype html>
+
+<script
+	type=module
+>
+	let
+	print
+	=
+	function(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		console.log(
+			string
+		)
+		
+		console.log(
+			''
+		)
+	}
+	
+	let
+	f
+	=
+	function(){
+		print(
+			3
+		)
+	}
+	
+	{
+		let
+		old_f
+		=
+		f
+		
+		f
+		=
+		function(){
+			old_f()
+			print(
+				4
+			)
+		}
+	}
+	
+	f()
+</script>

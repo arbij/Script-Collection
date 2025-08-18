@@ -18,14 +18,18 @@ print(
 	)
 }
 
-function
-set_interval(
+let
+set_interval
+=
+function(
 	seconds,
-	callback
+	do_this
 ){	
-	function
-	callback_with_clear(){
-		callback(
+	let
+	do_this_with_clear
+	=
+	function(){
+		do_this(
 			function(){
 				clearInterval(
 					interval_id
@@ -38,14 +42,14 @@ set_interval(
 	interval_id
 	=
 	setInterval(
-		callback_with_clear,
+		do_this_with_clear,
 		
 		seconds
 		*
 		1000
 	)
 	
-	callback_with_clear()
+	do_this_with_clear()
 }
 
 set_interval(
