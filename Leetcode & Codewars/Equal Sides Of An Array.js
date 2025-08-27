@@ -10,7 +10,7 @@ array=>{
 	
 	let
 	right_sum=
-	left_sum
+	0
 	
 	for(
 		let
@@ -45,7 +45,7 @@ array=>{
 			right_sum
 		)
 		return(
-	+
+			+
 			index
 		)
 		
