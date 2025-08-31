@@ -1,7 +1,13 @@
 <!doctype html>
 <script
 	type=module
->	
+>
+	let
+	print
+	=
+	console
+	.log
+	
 	let
 	sleep
 	=
@@ -28,12 +34,84 @@
 		)
 	}
 	
-	await
-	sleep(
-		1
+	document
+	.body
+	.onkeydown
+	=
+	function(){
+		print(
+			'hi!'
+		)
+	}
+	
+	print(
+		'blocking thread (but not events!)'
 	)
 	
-	console.log(
-		'<3'
+	await
+	sleep(
+		2
+	)
+	
+	print(
+		'main thread released!'
+	)
+	
+	let
+	sleep_2
+	=
+	function(
+		seconds
+	){
+		let
+		start_time
+		=
+		Date.now()
+		
+		while(
+				Date.now()
+				-
+				start_time
+			<
+				seconds
+				*
+				1000
+		);
+	}
+	
+	document
+	.body
+	.onkeydown
+	=
+	function(){
+		print(
+			'blocked...'
+		)
+	}
+	
+	print(
+		'Blocking everything (even events)'
+	)
+	
+	sleep_2(
+		2
+	)
+	
+	setTimeout(
+		function(){
+			print(
+				'no longer accepting events!'
+			)
+			
+			document
+			.body
+			.onkeydown
+			=
+			function(){}
+		}
+	)
+	
+	print(
+		'Thread released!'
 	)
 </script>
