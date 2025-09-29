@@ -50,6 +50,12 @@ function(
 	)
 	
 	while(true){
+		let
+		b
+		=
+		a
+		.next
+		
 		c
 		=
 		c
@@ -59,8 +65,7 @@ function(
 			a
 			.value
 			+
-			a
-			.next
+			b
 			.value
 		)
 		
@@ -79,8 +84,7 @@ function(
 		
 		a
 		=
-		a
-		.next
+		b
 	}
 }
 
@@ -91,14 +95,14 @@ function(
 	n
 ){
 	let
-	default_numbers
+	length
 	=
 	3
 	
 	if(
 		n
 		<
-		default_numbers
+		length
 	)
 	return(
 		1n
@@ -107,70 +111,54 @@ function(
 	let
 	numbers
 	=
-	[
-		...
-		Array(
-			3
-		)
-	]
-	
-	for(
-		let
-		number
-		in
-		numbers
-	){
-		numbers[
-			number
-		]
-		=
-		1
-	}
+	Array(
+		length
+	)
+	.fill(
+		1n
+	)
 	
 	let
-	start
+	first
 	=
 	0
 	
 	while(true){
 		let
-		new_end
-		=
-		start
-		+
-		3
-		
-		let
-		potential_result
-		=
-		numbers[
-			new_end
-		]
-		=
-		numbers[
-			start
-		]
-		+
-		numbers[
-			start
+		new_first
+		=(
+			first
 			+
 			1
+		)
+		%
+		length
+		
+		let
+		new_number
+		=
+		numbers[
+			first
+		]
+		+=
+		numbers[
+			new_first
 		]
 		
-		print(
-			numbers
-		)
-		
 		if(
-			new_end
-			===
 			n
+			===
+			length
 		)
 		return(
-			potential_result
+			new_number
 		)
 		
-		++
-		start
+		--
+		n
+		
+		first
+		=
+		new_first
 	}
 }
