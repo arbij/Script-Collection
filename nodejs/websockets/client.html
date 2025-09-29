@@ -1,0 +1,212 @@
+<!doctype html>
+<script
+	type=module
+>
+	let
+	print
+	=
+	function(
+		...
+		strings
+	){
+		for(
+			let
+			string
+			of
+			strings
+		)
+		console.log(
+			string
+		)
+		
+		console.log(
+			''
+		)
+	}
+	
+	let
+	server
+	=
+	new
+	WebSocket(
+		'ws://localhost:8000/'
+	)
+	
+	await
+	new
+	Promise(
+		function(
+			resolve
+		){
+			server
+			.onopen
+			=
+			resolve
+		}
+	)
+	
+	let
+	send_message
+	=
+	function(
+		message_name,
+		message_arguments
+	){	
+		server
+		.send(
+			JSON
+			.stringify(
+				[
+					...
+					arguments
+				]
+			)
+		)
+		
+		return(
+			new
+			Promise(
+				function(
+					resolve
+				){
+					let
+					old_server_on_message
+					=
+					server
+					.onmessage
+					
+					server
+					.onmessage
+					=
+					function(
+						response
+					){
+						server
+						.onmessage
+						=
+						old_server_on_message
+						
+						resolve(
+							JSON
+							.parse(
+								response
+								.data
+							)
+						)
+					}
+				}
+			)
+		)
+	}
+	
+	//unused
+	server
+	.onmessage
+	=
+	function(
+		message
+	){
+		print(
+			'server sent a message!',
+			
+			JSON
+			.parse(
+				message
+				.data	
+			)
+		)
+	}
+	
+	let
+	test
+	=
+	async function(){
+		print(
+			await
+			send_message(
+				'register',
+				
+				'James',
+				'james_smith@gmail.com',
+				'strongpass'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'log_in',
+				
+				'James',
+				'strongpass'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'new_book',
+				
+				'harry potter',
+				'jk rowling',
+				'fantasy',
+				'reading'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'modify_book',
+				
+				'harry potter',
+				'status',
+				'completed'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'modify_book',
+				
+				'harry potter',
+				'title',
+				'Harry Potter'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'remove_book',
+				
+				'Harry Potter'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'admin_log_in',
+				'admin_password'
+			)
+		)
+		
+		print(
+			await
+			send_message(
+				'new_book',
+				
+				'lord of the rings',
+				'jrt',
+				'fantasy',
+				'reading',
+				
+				'James'
+			)
+		)
+	}
+	
+	test()
+</script>
