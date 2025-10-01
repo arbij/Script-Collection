@@ -33,18 +33,23 @@ function(
 		!==
 		0
 	){
-		let[
-			possibility,
-			opening,
-			closing
-		]
+		let
+		check_this
 		=
 		to_be_checked
 		.pop()
 		
+		let
+		by_value
+		=
+		JSON
+		.stringify(	
+			check_this
+		)
+		
 		if(
 			checked[
-				possibility
+				by_value
 			]
 			===
 			true
@@ -52,10 +57,18 @@ function(
 		continue
 		
 		checked[
-			possibility
+			by_value
 		]
 		=
 		true
+		
+		let[
+			possibility,
+			opening,
+			closing
+		]
+		=
+		check_this
 		
 		if(
 			opening

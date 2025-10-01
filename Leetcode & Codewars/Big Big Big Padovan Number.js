@@ -7,10 +7,15 @@ padovan
 function(
 	n
 ){
+	let
+	length
+	=
+	3
+	
 	if(
 		n
 		<
-		3
+		length
 	)
 	return(
 		1n
@@ -19,55 +24,58 @@ function(
 	let
 	node
 	=
-	function(
-		value,
-		next
-	){
+	function(){
 		return{
-			value,
-			next
+			value:
+			1n
 		}
 	}
 	
 	let
-	c
+	first
 	=
-	node(
-		1n
-	)
+	node()
 	
-	let
-	a
-	=
-	node(
-		1n,
+	{
+		let
+		current
+		=
+		first
 		
-		node(
-			1n,
+		while(
+			length
+			>
+			1
+		){
+			current
+			=
+			current
+			.next
+			=
+			node()
 			
-			c
-		)
-	)
+			--
+			length
+		}
+		
+		current
+		.next
+		=
+		first
+	}
 	
 	while(true){
 		let
-		b
+		next
 		=
-		a
+		first
 		.next
 		
-		c
-		=
-		c
-		.next
-		=
-		node(
-			a
-			.value
-			+
-			b
-			.value
-		)
+		first
+		.value
+		+=
+		next
+		.value
 		
 		if(
 			n
@@ -75,16 +83,16 @@ function(
 			3
 		)
 		return(
-			c
+			first
 			.value
 		)
 		
 		--
 		n
 		
-		a
+		first
 		=
-		b
+		next
 	}
 }
 
