@@ -1,5 +1,11 @@
 //run in codewars.com/kata/5819f1c3c6ab1b2b28000624/train/javascript
 
+let
+print
+=
+console
+.log
+
 //linked list queue
 let
 padovan
@@ -95,6 +101,12 @@ function(
 		next
 	}
 }
+
+print(
+	padovan(
+		9
+	)
+)
 
 //array queue
 padovan

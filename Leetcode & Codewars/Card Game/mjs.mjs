@@ -19,14 +19,10 @@ function(
 		let
 		player
 		=
-		function(
-			next
-		){
+		function(){
 			return{
 				cards:
-				0n,
-				
-				next
+				0n
 			}
 		}
 		
@@ -37,14 +33,30 @@ function(
 		
 		alice
 		=
-		player(
+		player()
+		
+		let
+		connect
+		=
+		function(
+			player_1,
+			player_2
+		){
+			player_1
+			.next
+			=
+			player_2
+		}
+		
+		connect(
+			alice,
 			bob
 		)
 		
-		bob
-		.next
-		=
-		alice
+		connect(
+			bob,
+			alice
+		)
 	}
 	
 	let
@@ -63,15 +75,15 @@ function(
 	}
 	
 	let
-	remove_one
+	take_one
 	=
 	function(){
-		--
-		cards
-		
 		++
 		player
 		.cards
+		
+		--
+		cards
 		
 		if(
 			cards
@@ -82,10 +94,10 @@ function(
 	}
 	
 	let
-	remove_one_and_switch_players
+	take_one_and_switch_players
 	=
 	function(){
-		remove_one()
+		take_one()
 		
 		switch_players()
 	}
@@ -98,25 +110,27 @@ function(
 			===
 			1n
 		)
-		remove_one_and_switch_players()
+		take_one_and_switch_players()
 		
 		while(true){
 			if(
-					cards
-					===
-					4n
+				cards
+				===
+				4n
 				||(
-						cards
-						%
-						2n
-						===
-						0n
+					cards
+					%
+					2n
+					===
+					0n
+					
 					&&
-						cards
-						%
-						4n
-						!==
-						0n
+					
+					cards
+					%
+					4n
+					!==
+					0n
 				)
 			){				
 				player
@@ -127,12 +141,12 @@ function(
 				2n
 			}
 			else{	
-				remove_one()
+				take_one()
 			}
 			
 			switch_players()
 			
-			remove_one_and_switch_players()
+			take_one_and_switch_players()
 		}
 	}
 	catch{}
