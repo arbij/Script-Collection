@@ -4,35 +4,34 @@
 	repeat
 	=
 	function(
-		iterations,
+		start,
+		end,
 		do_this
 	){
-		let
-		iteration=
-		0
-		
 		while(
-			iteration
+			start
 			<
-			iterations
+			end
 		){
 			do_this(
-				iteration
+				start
 			)
 			
 			++
-			iteration
+			start
 		}
 	}
 	
 	repeat(
-		38,
+		3,
+		10,
 		
-		iteration=>
-		document.write(
+		function(
 			iteration
-			+
-			'<br>'
-		)
+		){
+			console.log(
+				iteration
+			)
+		}
 	)
 </script>
