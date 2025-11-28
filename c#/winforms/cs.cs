@@ -13,17 +13,16 @@ Form
 	WindowState
 	=
 	FormWindowState
-	. Maximized
+	.Maximized
 };
 
 Label
 label
 =
 new
-Label
-{
-	Text
-	= "this is a label"
+Label{
+	Text=
+	"this is a label"
 };
 
 form
@@ -43,26 +42,26 @@ random_color
 	();
 	
 	label
-	. BackColor
+	.BackColor
 	=
 	System
-	. Drawing
-	. Color
-	. FromArgb
-	(
+	.Drawing
+	.Color
+	.FromArgb(
 		random
-		. Next
-		( 256 )
+		.Next(
+			256
+		),
 		
-		,
 		random
-		. Next
-		( 256 )
+		.Next(
+			256
+		),
 		
-		,
 		random
-		. Next
-		( 256 )
+		.Next(
+			256
+		)
 	);
 };
 
@@ -70,113 +69,102 @@ Button
 x_button
 =
 new
-Button
-{
-	Text
-	= "X"
+Button{
+	Text=
+	"X",
 	
-	,
-	Left
-	= 200
+	Left=
+	200,
 	
-	,
-	Top
-	= 50
+	Top=
+	50
 };
 
 Button
 y_button
 =
 new
-Button
-{
-	Text
-	= "Y"
+Button{
+	Text=
+	"Y",
 	
-	,
-	Left
-	= 50
+	Left=
+	50,
 	
-	,
-	Top
-	= 200
+	Top=
+	200
 };
 
 x_button
-. Click
-+=
-(
+.Click
++=(
+	_,
 	_
-	, _
-)
-=>
-{
+)=>{
 	label
-	. Left
-	+= 100;
+	.Left
+	+=
+	100;
 	
-	if
-	(
+	if(
 		label
-		. Right
+		.Right
 		>
 		form
-		. Width
+		.Width
 	)
 	label
-	. Left
+	.Left
 	-=
 	form
-	. Width;
+	.Width;
 	
-	random_color
-	();
+	random_color();
 };
 
 y_button
-. Click
-+=
-(
+.Click
++=(
+	_,
 	_
-	, _
-)
-=>
-{
+)=>{
 	label
-	. Top
-	+= 100;
+	.Top
+	+=
+	100;
 	
-	if
-	(
+	if(
 		label
-		. Bottom
+		.Bottom
 		>
 		form
-		. Height
+		.Height
 	)
 	label
-	. Top
+	.Top
 	-=
 	form
-	. Height;
+	.Height;
 	
-	random_color
-	();
+	random_color();
 };
 
 form
-. Controls
-. Add
-( x_button );
+.Controls
+.Add(
+	x_button
+);
 
 form
-. Controls
-. Add
-( y_button );
+.Controls
+.Add(
+	y_button
+);
 
 Application
-. EnableVisualStyles ();
+.EnableVisualStyles();
 
 Application
-. Run
-( form );
+.Run(
+	form
+);

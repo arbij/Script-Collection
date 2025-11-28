@@ -19,4 +19,4 @@ count()
 
 # doesn't execute :)
 # temp()
-# print(counter)
+# print(so_far)
