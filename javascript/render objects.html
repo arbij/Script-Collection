@@ -1,0 +1,56 @@
+<!doctype html>
+
+<script
+	type=module
+>
+	let
+	print
+	=
+	console
+	.log
+	
+	function
+	create_element(
+		tag,
+		attributes
+	){
+		let element = document.createElement(
+			tag
+		)
+		
+		for(
+			let
+			attribute
+			in
+			attributes
+		){
+			element[
+				attribute
+			]
+			=
+			attributes[
+				attribute
+			]
+		}
+		
+		return(
+			element
+		)
+	}
+	
+	document.body.append(
+		create_element(
+			'pre',
+			{
+				innerHTML:
+				JSON.stringify(
+					{
+						key: "value",
+					},
+					null,
+					4
+				)
+			}
+		)
+	)
+</script>

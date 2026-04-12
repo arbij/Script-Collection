@@ -14,23 +14,20 @@
 	function(
 		seconds
 	){
-		return(
-			new
-			Promise(
-				function(
-					resolve
-				){
-					setTimeout(
-						function(){
-							resolve()
-						},
-						
-						seconds
-						*
-						1000
-					)
-				}
-			)
+		return new Promise(
+			function(
+				resolve
+			){
+				setTimeout(
+					function(){
+						resolve()
+					},
+					
+					seconds
+					*
+					1000
+				)
+			}
 		)
 	}
 	
@@ -69,13 +66,7 @@
 		Date.now()
 		
 		while(
-				Date.now()
-				-
-				start_time
-			<
-				seconds
-				*
-				1000
+			Date.now()-start_time < seconds*1000
 		);
 	}
 	

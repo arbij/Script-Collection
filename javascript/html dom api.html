@@ -9,13 +9,11 @@
 	document
 	.body
 	
-	function
-	print(
+	function print(
 		...
 		strings
 	){
-		function
-		print_no_blank_space(
+		function print(
 			string
 		){
 			body
@@ -34,18 +32,18 @@
 			of
 			strings
 		)
-		print_no_blank_space(
+		print(
 			string
 		)
 		
-		print_no_blank_space(
+		print(
 			''
 		)
 	}
 	
 	body
 	.append(
-		'hii'
+		'<i>hii</i>'
 	)
 	
 	let
@@ -59,7 +57,7 @@
 	div
 	.insertAdjacentHTML(
 		'beforeend',
-		'3<br>'
+		'<i>hii</i><br>'
 	)
 	
 	body
@@ -90,7 +88,7 @@
 	=
 	document
 	.createTextNode(
-		3
+		'<i>3</i>'
 	)
 	
 	//parsed as text/string, not html!!

@@ -2,11 +2,11 @@
 
 Action<dynamic> print = Console.WriteLine;
 
-dynamic list=new List<dynamic>{1,2,4};
+var list=new List<dynamic>{1,2,4};
 
-var dictionary = new Dictionary<string, dynamic>{
-	{"a", 1},
-	{"b", 2}
+var dictionary = new Dictionary<dynamic, dynamic>{
+	["a"]= 1,
+	["b"]= 2
 };
 
 print(
