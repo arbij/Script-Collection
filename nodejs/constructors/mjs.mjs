@@ -35,17 +35,17 @@ let create_object_2
 		let object = {}
 		
 		for(
-			let key
+			let iteration
 			in keys
 		){
 			object[
 				keys[
-					key
+					iteration
 				]
 			]
 			=
 			values[
-				key
+				iteration
 			]
 		}
 		
@@ -68,17 +68,17 @@ function create_object_creator(
 		let object = {}
 		
 		for(
-			let key
+			let iteration
 			in keys
 		){
 			object[
 				keys[
-					key
+					iteration
 				]
 			]
 			=
 			values[
-				key
+				iteration
 			]
 		}
 		
