@@ -1,0 +1,33 @@
+<!doctype html>
+<script src="https://unpkg.com/chai/chai.js"></script>
+<script
+	type=module
+>
+	let
+	print
+	=
+	console
+	.log
+	
+	let{
+		equal,
+		deepEqual
+	}
+	=
+	(
+		await import(
+			'https://cdn.jsdelivr.net/npm/chai@5.1.1/chai.js'
+		)
+	)
+	.assert
+	
+	equal(
+		4,
+		5
+	)
+	
+	deepEqual(
+		{a:1, b:2},
+		{b:2, a:1}
+	)
+</script>
