@@ -1,0 +1,53 @@
+<!doctype html>
+<script
+	type=module
+>
+	let
+	chai
+	=
+	await
+	import(
+		'https://cdn.jsdelivr.net/npm/chai'
+	)
+	
+	chai
+	.config
+	.truncateThreshold
+	=
+	0
+	
+	let{
+		equal,
+		deepEqual
+	}
+	=
+	chai
+	.assert
+	
+	deepEqual(
+		{
+			a:1,
+			b:2
+		},
+		
+		{
+			b:2,
+			a:1
+		}
+	)
+	
+	equal(
+		4,
+		2+2
+	)
+	
+	deepEqual(
+		4,
+		2+2
+	)
+	
+	equal(
+		[],
+		[]
+	)
+</script>
